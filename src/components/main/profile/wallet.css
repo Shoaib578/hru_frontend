@@ -1,0 +1,27 @@
+
+    .paypal-logo {
+      font-family: Verdana, Tahoma;
+      font-weight: bold;
+      font-size: 26px;
+      border: 1px solid #F0F0F0;
+      background-color: #F0F0F0;
+      border-radius: 10px;
+      width: 100%;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+   .stripe-logo{
+    font-family: Verdana, Tahoma;
+    font-weight: bold;
+    font-size: 26px;
+    border: 1px solid #F0F0F0;
+    background-color: #F0F0F0;
+    border-radius: 10px;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-top:20px;
+   }
