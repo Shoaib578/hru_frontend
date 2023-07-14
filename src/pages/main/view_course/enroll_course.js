@@ -70,11 +70,11 @@ const EnrollCourse = () => {
 
         
         
-        // if(!user){
-        //     message.error("Please Login")
-        //     window.location = '/login'
-        //     return
-        // }
+        if(!user){
+            message.error("Please Login")
+            window.location = '/login'
+            return
+        }
     },[])
 
 

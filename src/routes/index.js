@@ -30,6 +30,8 @@ import EditCourse from '../pages/panel/teacher/courses/edit_course';
 import Coupons from '../pages/panel/admin/coupons';
 import EnrollCourse from '../pages/main/view_course/enroll_course';
 import BuyCourse from '../pages/main/view_course/buy_course';
+import AffiliateLinks from '../pages/main/affiliate_link';
+import ViewAffiliateLinkCourse from '../pages/main/affiliate_link_view_course';
 
 
 
@@ -49,9 +51,14 @@ export default class Routes extends React.Component{
               <Route exact path="/profile"  element={<Profile />}/>
             
               <Route exact path="/course/:id"  element={<ViewCourse />}/>
+
+
+              <Route exact path="/short_link_course/:code/"  element={<ViewAffiliateLinkCourse />}/>
+
               <Route exact path="/teachers"  element={<AllTeachers />}/>
               <Route exact path="/enroll_course/:id"  element={<EnrollCourse />}/>
               <Route exact path="/buy_course/:id"  element={<BuyCourse />}/>
+              <Route exact path="/affiliate_links"  element={<AffiliateLinks />}/>
 
               <Route exact path="/teacher/:id"  element={<ViewTeacher />}/>
 

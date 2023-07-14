@@ -105,11 +105,21 @@ export default class Footer extends React.Component {
     {/* footer top */}
   </footer>
   {/*====== FOOTER PART ENDS ======*/}
+
+
+
+
+ 
+
+
   {/*====== BACK TO TP PART START ======*/}
   <a href="#" className="back-to-top">
     <i className="fa fa-angle-up" />
   </a>
   {/*====== BACK TO TP PART ENDS ======*/}
+
+
+  
 </>
 
         )

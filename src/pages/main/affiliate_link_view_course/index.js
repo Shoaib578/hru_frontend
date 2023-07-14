@@ -1,79 +1,34 @@
 import React from 'react'
-import Course from '../../../components/main/courseContainer'
-import { base_url } from '../../../base_url'
-import { buy_course, find_coupon, get_main_website_view_course } from '../../../call_apis'
+import { get_course_by_link_code } from '../../../call_apis'
 import { message } from 'antd'
+import { base_url } from '../../../base_url'
 
-const course_id = window.location.pathname.split('/')[2]
+const code = window.location.pathname.split('/')[2]
 const user = localStorage.getItem('user')
 const parse = JSON.parse(user)
-
-export default class ViewCourse extends React.Component{
+export default class ViewAffiliateLinkCourse extends React.Component{
     state = {
-      course:[],
-      lectures:[],
-      active_video_drop_id:'',
-      price:'',
-      coupon_code:''
+        course:[],
+        price:0,
+        lectures:[]
     }
-    get_course_details = async()=>{
-      if(user){
-        console.log(parse.user_id)
-        await get_main_website_view_course(course_id,true,parse.user_id)
+
+    GetCourseData = async()=>{
+        await get_course_by_link_code(code,user?true:false,user?user.user_id:null)
         .then(res=>{
-          this.setState({course:res.course[0],lectures:res.lectures,price:res.course[0].course_price})
+            
+            this.setState({course:res.course[0],lectures:res.lectures,price:res.course[0].course_price})
         })
         .catch(err=>{
-          console.log(err)
+            message.error("Something Went Wrong")
         })
-      }else{
-        await get_main_website_view_course(course_id,false,null)
-        .then(res=>{
-          this.setState({course:res.course[0],lectures:res.lectures,price:res.course[0].course_price})
-        })
-        .catch(err=>{
-          console.log(err)
-        })
-      }
-    
     }
 
+    buy_course = async(course_id,user_id)=>{
 
-   
-     percentage = (percentageValue,price)=>{
-
-      return (price/100)*percentageValue
     }
- 
-
-
-    findCoupon = async()=>{
-      if(this.state.coupon_code.length<1){
-        message.error("Coupon code is required")
-        return
-      }
-      await find_coupon(course_id,this.state.coupon_code)
-      .then(res=>{
-        if(res.found){
-          message.success(`Found coupon successfully.You have ${res.data.discount_percentage}% discount on this course` )
-          let percentage_of = this.percentage(res.data.discount_percentage,this.state.price)
-          let minus =percentage_of
-          console.log(minus)
-          this.setState({price:this.state.price - minus})
-
-        
-        }else{
-          message.error("Coupon not found")
-        }
-      })
-      .catch(err=>{
-        message.error("Something Went Wrong")
-      })
-    }
-
     componentDidMount(){
-     
-      this.get_course_details()
+        this.GetCourseData()
     }
     render(){
         return(
@@ -345,12 +300,12 @@ export default class ViewCourse extends React.Component{
 
                   {this.state.course.is_owned == 0?<button onClick={async()=>{
                     if(this.state.price>0){
-                      window.location = `/enroll_course/${course_id}`
+                      window.location = `/enroll_course/${this.state.course.course_id}`
                     }else{
-                      await buy_course(course_id,parse.user_id)
+                      await this.buy_course(this.state.course.course_id,parse.user_id)
                       .then(res=>{
                         if(res.is_owned){
-                          window.location = '/course/'+course_id
+                          window.location = '/course/'+this.state.course.course_id
                         }else{
                           message.error("Something went wrong")
                         }
@@ -402,7 +357,6 @@ export default class ViewCourse extends React.Component{
   </section>
   {/*====== COURSES SINGEl PART ENDS ======*/}
 </>
-
         )
     }
 }

@@ -18,24 +18,29 @@ const CheckoutForm = (props) => {
         return;
       }
       elements.submit()
-      const result = await stripe.confirmPayment({
+       await stripe.confirmPayment({
        
         //`Elements` instance that was used to create the Payment Element
         elements,
         clientSecret:props.client_secret,
+        
         confirmParams: {
+          
             return_url:`http://localhost:3000/buy_course/${props.course_id}`,
         },
-      });
+      })
+      .then((result)=>{
+        if (result.error) {
+          // Show error to your customer (for example, payment details incomplete)
   
-      if (result.error) {
-        // Show error to your customer (for example, payment details incomplete)
-
-        message.error(result.error.message)
-        console.log('error message: ',result.error.message);
-      } else {
-        console.log("Hello tehre")
-      }
+          message.error(result.error.message)
+          console.log('error message: ',result.error.message);
+        } else {
+          console.log("Hello tehre")
+        }
+      })
+  
+     
     };
    
   return (

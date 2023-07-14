@@ -436,6 +436,43 @@ export async function send_application(email,resume){
     })
     return response.json()
 }
+
+
+export async function add_link(link,course_id,user_id,code){
+    let formData = new FormData()
+    formData.append('link',link)
+    formData.append('course_id',course_id)
+
+    formData.append("code",code)
+    formData.append('user_id',user_id)
+
+    const response = await fetch(`${base_url}/apis/main/courses/add_link`,{
+        body: formData,
+        method:'POST'
+    })
+    return response.json()
+
+}
+
+
+export async function get_links(user_id){
+    const response = await fetch(`${base_url}/apis/main/courses/get_all_links?user_id=${user_id}`,{
+        method:'GET'
+    })
+    return response.json()
+}
+
+export async function delete_link(link_id){
+    const response = await fetch(`${base_url}/apis/main/courses/delete_link?link_id=${link_id}`,{
+        method:'DELETE'
+    })
+    return response.json()
+}
+
+export async function get_course_by_link_code(code,is_loggedin,user_id){
+    const response = await fetch(`${base_url}/apis/main/courses/get_course_by_link_code?code='${code}'&&is_loggedin=${is_loggedin}&&user_id=${user_id}`)
+    return response.json()
+}
 //Main Website Related Apis End
 
 

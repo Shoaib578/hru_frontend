@@ -1,9 +1,46 @@
+import { message } from 'antd'
 import React from 'react'
-
+const user = localStorage.getItem('user')
+const parse = JSON.parse(user)
 export default class ContactUsContainer extends React.Component {
     render(){
         return(
             <>
+
+             {/*====== CONTACT PART START ======*/}
+             <section style={{ width: "100%",backgroundColor:'#07294d' }} className="pt-90 pb-120">
+              <div className="container">
+                <div className="col-lg-7">
+                 
+                    <div className="section-title">
+                    
+                      <h2 style={{color:'white'}}>Affiliate Link</h2>
+                      <p style={{color:'white'}}>Start Earning By Doing Affliate Link</p>
+
+                      <br />
+
+                      <button onClick={()=>{
+                        if(user){
+                          window.location = "/affiliate_links"
+
+                        }else{
+                          message.error("Please Login to be able to have access")
+                        }
+                      }} className='main-btn'>Get Start</button>
+                    </div>
+                   
+                 
+                  {/*  contact from */}
+                </div>
+              </div>
+              {/* container */}
+            </section>
+            {/*====== CONTACT PART ENDS ======*/}
+
+
+
+
+
             {/*====== CONTACT PART START ======*/}
             <section style={{ width: "100%" }} className="pt-90 pb-120 gray-bg">
               <div className="container">
